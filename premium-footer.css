@@ -1,0 +1,482 @@
+/* ============================================================
+   Premium Footer Design 2025
+   参照最新网页设计趋势：玻璃态、渐变、微交互
+   ============================================================ */
+
+/* 1. Footer 主容器 - 渐变背景 */
+footer {
+  position: relative;
+  background: linear-gradient(180deg,
+    var(--bg) 0%,
+    rgba(250, 246, 242, 0.95) 50%,
+    rgba(245, 240, 235, 0.98) 100%
+  );
+  border-top: 1px solid rgba(196, 69, 54, 0.08);
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(196, 69, 54, 0.3) 20%,
+    rgba(212, 168, 83, 0.3) 50%,
+    rgba(196, 69, 54, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+/* 2. Footer Grid - 优化布局 */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 64px 40px 48px;
+}
+
+.footer-grid > div {
+  position: relative;
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(196, 69, 54, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-grid > div:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(196, 69, 54, 0.12);
+  box-shadow: 0 12px 48px rgba(196, 69, 54, 0.08);
+}
+
+.footer-grid > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c44536, #d4a853);
+  border-radius: 16px 16px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.footer-grid > div:hover::before {
+  opacity: 1;
+}
+
+/* 3. Footer 标题 */
+.footer-grid h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-grid h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(180deg, #c44536, #d4a853);
+  border-radius: 2px;
+}
+
+/* 4. Footer 列表 */
+.footer-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-grid ul li {
+  padding: 10px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-2);
+  transition: all 0.3s;
+  position: relative;
+  padding-left: 20px;
+}
+
+.footer-grid ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.3s;
+}
+
+.footer-grid ul li:hover {
+  color: var(--accent);
+  padding-left: 24px;
+}
+
+.footer-grid ul li:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.footer-grid ul li a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+/* 5. Footer Bottom - 引用区域 */
+.footer-bottom {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 40px;
+  text-align: center;
+  position: relative;
+}
+
+.footer-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(196, 69, 54, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+.footer-bottom .quote {
+  font-size: 20px;
+  line-height: 1.8;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-style: italic;
+  margin-bottom: 32px;
+  position: relative;
+  padding: 0 40px;
+}
+
+.footer-bottom .quote::before,
+.footer-bottom .quote::after {
+  font-size: 48px;
+  color: var(--accent);
+  opacity: 0.2;
+  font-family: Georgia, serif;
+  position: absolute;
+}
+
+.footer-bottom .quote::before {
+  content: '"';
+  left: 0;
+  top: -10px;
+}
+
+.footer-bottom .quote::after {
+  content: '"';
+  right: 0;
+  bottom: -30px;
+}
+
+/* 6. 回到顶部按钮 - 玻璃态设计 */
+.footer-bottom a[href="#"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(196, 69, 54, 0.15);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.footer-bottom a[href="#"]:hover {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(196, 69, 54, 0.25);
+}
+
+/* 7. 地区选择器 - 现代化设计 */
+.region-selector {
+  text-align: center;
+  padding: 32px 0 20px;
+  border-top: 1px solid rgba(196, 69, 54, 0.06);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+#regionTrigger {
+  font-size: 13px;
+  color: var(--text-2);
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(196, 69, 54, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#regionTrigger:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.02);
+}
+
+/* 8. Credits Block - 高端机构展示 */
+.credits-block {
+  max-width: 900px;
+  margin: 40px auto 0;
+  padding: 40px 32px 8px;
+  border-top: 1px solid rgba(196, 69, 54, 0.06);
+  text-align: center;
+  position: relative;
+}
+
+.credits-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, #c44536, #d4a853);
+  border-radius: 2px;
+}
+
+.credits-block > div:first-child {
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--text-3);
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.credits-block > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.credits-block img {
+  height: 56px;
+  object-fit: contain;
+  transition: all 0.4s;
+  filter: grayscale(0.2) opacity(0.85);
+}
+
+.credits-block img:hover {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.05);
+}
+
+/* 9. 团队信息 - 优雅排版 */
+.credits-block > div:nth-child(3) {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-3);
+  margin: 32px 0 20px;
+  text-transform: uppercase;
+}
+
+.credits-block > div:nth-child(4) {
+  font: 400 15px/2.2 var(--font-serif);
+  color: var(--text-2);
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+.credits-block > div:nth-child(4) b {
+  color: var(--text);
+  font-weight: 600;
+  position: relative;
+}
+
+.credits-block > div:nth-child(4) b::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.credits-block > div:nth-child(4) b:hover::after {
+  opacity: 0.5;
+}
+
+/* 10. Copyright - 极简设计 */
+.copyright {
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  padding: 28px 20px;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* 11. 暗色模式适配 */
+[data-theme="dark"] footer {
+  background: linear-gradient(180deg,
+    rgba(15, 15, 15, 0.95) 0%,
+    rgba(20, 20, 20, 0.98) 50%,
+    rgba(25, 25, 25, 1) 100%
+  );
+  border-top-color: rgba(232, 137, 122, 0.12);
+}
+
+[data-theme="dark"] footer::before {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(232, 137, 122, 0.4) 20%,
+    rgba(212, 168, 83, 0.4) 50%,
+    rgba(232, 137, 122, 0.4) 80%,
+    transparent 100%
+  );
+}
+
+[data-theme="dark"] .footer-grid > div {
+  background: rgba(28, 28, 28, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .footer-grid > div:hover {
+  background: rgba(35, 35, 35, 0.8);
+  border-color: rgba(232, 137, 122, 0.2);
+  box-shadow: 0 12px 48px rgba(232, 137, 122, 0.12);
+}
+
+[data-theme="dark"] .footer-bottom a[href="#"] {
+  background: rgba(28, 28, 28, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f5f0e8;
+}
+
+[data-theme="dark"] .footer-bottom a[href="#"]:hover {
+  background: #e8897a;
+  border-color: #e8897a;
+}
+
+[data-theme="dark"] .credits-block img {
+  filter: brightness(0) invert(1) grayscale(0.3) opacity(0.75);
+}
+
+[data-theme="dark"] .credits-block img:hover {
+  filter: brightness(0) invert(1) grayscale(0) opacity(0.95);
+}
+
+/* 12. 响应式优化 */
+@media(max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 48px 24px 32px;
+  }
+
+  .footer-grid > div {
+    padding: 20px;
+  }
+
+  .footer-bottom {
+    padding: 40px 24px;
+  }
+
+  .footer-bottom .quote {
+    font-size: 17px;
+    padding: 0 24px;
+  }
+
+  .credits-block > div:nth-child(2) {
+    gap: 32px;
+  }
+
+  .credits-block img {
+    height: 48px;
+  }
+}
+
+@media(max-width: 480px) {
+  .footer-grid {
+    padding: 40px 20px 24px;
+  }
+
+  .footer-bottom .quote {
+    font-size: 16px;
+    padding: 0 16px;
+  }
+
+  .credits-block > div:nth-child(2) {
+    gap: 24px;
+  }
+
+  .credits-block img {
+    height: 40px;
+  }
+}
+
+/* 13. 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-grid > div,
+.footer-bottom,
+.credits-block {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.footer-grid > div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.footer-bottom {
+  animation-delay: 0.2s;
+}
+
+.credits-block {
+  animation-delay: 0.3s;
+}

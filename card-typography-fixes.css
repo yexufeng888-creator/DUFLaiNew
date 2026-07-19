@@ -1,0 +1,256 @@
+/* ============================================================
+   卡片文字排版修复 - Card Typography Fixes
+   修复卡片内部文字间距、对齐、行高等问题
+   ============================================================ */
+
+/* 0. 确保浅色模式下卡片可见 - 最高优先级 */
+.card,
+.contact-card,
+.stat-card,
+.evidence-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* 0.1 确保所有文字颜色继承正确 */
+.card *,
+.contact-card * {
+  color: inherit;
+}
+
+.card h3,
+.card h4,
+.contact-card h3 {
+  color: var(--text) !important;
+}
+
+.card p,
+.card .c-desc,
+.contact-card p,
+.contact-card .c-desc {
+  color: var(--text-2) !important;
+}
+
+.card .c-value,
+.contact-card .c-value {
+  color: var(--text) !important;
+  font-weight: 500;
+}
+
+/* 1. 通用卡片内部间距优化 */
+.card {
+  line-height: 1.7;
+}
+
+.card > div {
+  margin-bottom: 0;
+}
+
+/* 2. 卡片内表格式布局优化 */
+.card > div[style*="display:flex"][style*="justify-content:space-between"] {
+  padding: 14px 0 !important;
+  align-items: center;
+  min-height: 48px;
+}
+
+.card > div[style*="display:flex"] span {
+  line-height: 1.6 !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.card > div[style*="display:flex"] span:first-child {
+  padding-right: 16px;
+}
+
+.card > div[style*="display:flex"] span:last-child {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 3. 边框间距优化 */
+.card > div[style*="border-bottom"] {
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+  margin-bottom: 0 !important;
+}
+
+.card > div[style*="border-bottom"]:last-child {
+  border-bottom: none !important;
+}
+
+/* 4. 文字大小和行高标准化 */
+.card span[style*="font-size:12px"] {
+  line-height: 1.5 !important;
+}
+
+.card span[style*="font-size:14px"] {
+  line-height: 1.6 !important;
+}
+
+/* 5. Contact页面卡片特殊优化 */
+.contact-card .c-desc {
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.contact-card .c-value {
+  line-height: 1.6;
+  margin: 4px 0;
+  word-break: break-all;
+}
+
+/* 6. About页面学术卡片优化 */
+.profile-grid .card > div {
+  padding: 14px 0;
+}
+
+.profile-grid .card > div span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 7. Footer内列表间距 */
+footer ul li {
+  padding: 6px 0;
+  line-height: 1.8;
+}
+
+/* 8. 确保所有卡片内文字不会贴边 */
+.card[style*="padding"] > div[style*="display:flex"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 9. 标签和值的对齐 */
+.card > div[style*="display:flex"] {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px;
+}
+
+/* 10. 响应式优化 */
+@media(max-width: 768px) {
+  .card > div[style*="display:flex"][style*="justify-content:space-between"] {
+    padding: 12px 0 !important;
+    min-height: 44px;
+    gap: 12px;
+  }
+
+  .card > div[style*="display:flex"] span:last-child {
+    max-width: 60%;
+    word-break: break-word;
+  }
+}
+
+@media(max-width: 480px) {
+  .card > div[style*="display:flex"][style*="justify-content:space-between"] {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 6px;
+    padding: 12px 0 !important;
+  }
+
+  .card > div[style*="display:flex"] span:last-child {
+    max-width: 100%;
+    text-align: left !important;
+  }
+}
+
+/* 11. 暗色模式下的优化 */
+[data-theme="dark"] .card > div[style*="display:flex"] {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .card span {
+  color: inherit;
+}
+
+/* 12. 确保标签文字不会太小 */
+.card span[style*="font-size:12px"][style*="color:var(--text-3)"] {
+  font-size: 12px !important;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 13. 值文字确保可读 */
+.card span[style*="font-size:14px"] {
+  font-size: 14px !important;
+  font-weight: 400;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 14. 常见咨询类型网格优化 */
+.card > div[style*="grid-template-columns"] {
+  gap: 12px 8px !important;
+  line-height: 1.8 !important;
+}
+
+.card > div[style*="grid-template-columns"] > div {
+  padding: 4px 0;
+  line-height: 1.8;
+}
+
+/* 15. 浅色模式也应用相同优化 */
+.card {
+  --card-padding-y: 14px;
+}
+
+/* 16. Contact卡片特殊处理 */
+.contact-card {
+  line-height: 1.65;
+}
+
+.contact-card > * {
+  margin-bottom: 12px;
+}
+
+.contact-card > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 17. 确保emoji和图标垂直居中 */
+.c-icon {
+  line-height: 1 !important;
+  display: block !important;
+}
+
+/* 18. 按钮不应该被文字挤压 */
+.contact-card .c-btn,
+.card .btn {
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+
+/* 19. 修复内联样式覆盖问题 */
+.card [style*="margin-bottom"] {
+  margin-bottom: 12px !important;
+}
+
+.card [style*="margin-top"] {
+  margin-top: 12px !important;
+}
+
+/* 20. 确保所有文字元素有合适的行高 */
+.card h3,
+.card h4,
+.card h5,
+.card p,
+.card span,
+.card div {
+  line-height: inherit;
+}
+
+.card h3 {
+  line-height: 1.3;
+  margin: 12px 0 8px;
+}
+
+.card p {
+  line-height: 1.7;
+  margin: 8px 0;
+}

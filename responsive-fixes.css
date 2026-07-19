@@ -1,0 +1,475 @@
+/* ============================================================
+   响应式显示修复补丁
+   解决电脑端、手机端、iPad端的显示问题
+   ============================================================ */
+
+/* 1. 防止内容溢出 */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* 2. 确保图片响应式 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3. 导航栏优化 - 移动端 */
+@media(max-width:768px) {
+  #nav .brand {
+    font-size: 14px;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #nav .nav-inner {
+    padding: 0 var(--space-4);
+  }
+
+  /* 确保移动菜单在打开时不会被遮挡 */
+  #nav .nav-links.open {
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 4. Hero区域文字优化 */
+@media(max-width:768px) {
+  .hero-inner {
+    padding: 0 var(--space-5);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-6);
+  }
+}
+
+@media(max-width:480px) {
+  .hero-inner {
+    padding: 0 var(--space-4);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* 5. 卡片内容不溢出 */
+.card, .stat-card, .evidence-card, .dd-card,
+.insight-card, .case-card, .film-card,
+.method-card, .source-card, .analysis-card, .chart-card {
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 6. 表格横向滚动优化 */
+.cmp-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.cmp-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cmp-scroll::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+  border-radius: 3px;
+}
+
+.cmp-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.cmp-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* 7. 文本不要溢出容器 */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* 8. 按钮和交互元素触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+  /* 触摸设备优化 */
+  button, a, .btn, .film-filter-btn, .theme-btn,
+  .menu-btn, .hero-dots span, .region-card,
+  .film-card, .tl-node, .map-dot-group {
+    -webkit-tap-highlight-color: rgba(196, 69, 54, 0.1);
+    touch-action: manipulation;
+  }
+
+  /* 增大触摸目标 */
+  .theme-btn, .menu-btn, .fm-close {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+  }
+
+  #nav .nav-links a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-dots span {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 8px;
+  }
+}
+
+/* 9. iPad横屏优化 (1024px landscape) */
+@media(min-width:768px) and (max-width:1024px) and (orientation:landscape) {
+  .hero-home {
+    min-height: 100vh;
+  }
+
+  .section-xl {
+    padding: 100px 0;
+  }
+
+  .container, .container-narrow, .container-wide {
+    padding: 0 var(--space-8);
+  }
+
+  .hero-stats {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .hero-stat {
+    flex: 0 1 auto;
+    min-width: 160px;
+  }
+}
+
+/* 10. iPad竖屏优化 (768px - 1024px portrait) */
+@media(min-width:768px) and (max-width:1024px) and (orientation:portrait) {
+  .section {
+    padding: var(--space-20) 0;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .region-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hero-stat {
+    flex: 1 1 calc(50% - var(--space-4));
+    min-width: 200px;
+  }
+}
+
+/* 11. 小屏手机横屏 */
+@media(max-width:768px) and (orientation:landscape) {
+  .hero-home {
+    min-height: 100vh;
+  }
+
+  .hero-inner {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .hero-stat {
+    flex: 1 1 calc(33.333% - var(--space-4));
+    min-width: 140px;
+    max-width: 200px;
+  }
+
+  .hero-dots {
+    bottom: 60px;
+  }
+
+  .hero-scroll {
+    bottom: 24px;
+  }
+
+  .section, .section-xl {
+    padding: var(--space-12) 0;
+  }
+}
+
+/* 12. 电影卡片优化 */
+@media(max-width:768px) {
+  .film-card .film-body {
+    padding: var(--space-4);
+  }
+
+  .film-card .film-body h4 {
+    font-size: 13px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .film-card .film-meta {
+    font-size: 11px;
+    gap: 10px;
+  }
+
+  .film-card .film-desc {
+    font-size: 10.5px;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media(max-width:480px) {
+  .film-card .film-img {
+    height: 280px;
+  }
+
+  .film-card .film-body {
+    padding: var(--space-4) var(--space-4) var(--space-5);
+  }
+}
+
+/* 13. 地图卡片提示优化 */
+@media(max-width:768px) {
+  .map-card-tooltip {
+    max-width: 180px;
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+
+  .map-card-tooltip .mct-header strong {
+    font-size: 12px;
+  }
+
+  .map-card-tooltip .mct-bo {
+    font-size: 13px;
+  }
+}
+
+/* 14. Footer优化 */
+@media(max-width:768px) {
+  footer ul li {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  footer h3 {
+    font-size: 13px;
+    margin-bottom: var(--space-4);
+  }
+
+  .credits-block {
+    padding: 20px 16px 4px;
+  }
+
+  .credits-block img {
+    max-height: 40px;
+  }
+
+  .credits-block>div:last-child {
+    font-size: 13px;
+  }
+}
+
+@media(max-width:480px) {
+  .credits-block {
+    padding: 16px 12px 4px;
+  }
+
+  .credits-block img {
+    max-height: 32px;
+  }
+
+  .credits-block>div:last-child {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .credits-block>div:last-child div {
+    margin: 6px 0;
+  }
+}
+
+/* 15. 区域选择器优化 */
+@media(max-width:768px) {
+  #regionMenu > div {
+    width: 92%;
+    max-width: 400px;
+    padding: 28px 24px;
+    border-radius: var(--radius-lg);
+  }
+
+  #regionMenu h3 {
+    font-size: 17px;
+  }
+
+  #regionMenu p {
+    font-size: 10.5px;
+    margin-bottom: 16px;
+  }
+
+  #regionList {
+    gap: 8px;
+  }
+
+  .region-option {
+    font-size: 11.5px !important;
+    padding: 10px 14px !important;
+    min-width: calc(50% - 4px) !important;
+  }
+}
+
+@media(max-width:480px) {
+  #regionMenu > div {
+    width: 94%;
+    padding: 24px 20px;
+  }
+
+  #regionMenu h3 {
+    font-size: 16px;
+  }
+
+  #regionList {
+    gap: 6px;
+  }
+
+  .region-option {
+    font-size: 11px !important;
+    padding: 9px 12px !important;
+    min-width: 100% !important;
+  }
+}
+
+/* 16. 修复Safari iOS问题 */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari特定修复 */
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  input, textarea, select {
+    font-size: 16px !important; /* 防止iOS自动缩放 */
+  }
+
+  .hero-home {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* 17. 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero-slide img, .region-bg img, .film-card .film-img img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* 18. 深色模式下的可读性优化 */
+[data-theme="dark"] {
+  @media(max-width:768px) {
+    .hero-title-line {
+      text-shadow: 0 2px 40px rgba(0,0,0,.7);
+    }
+
+    .card, .stat-card, .evidence-card {
+      border-color: rgba(255,255,255,.1);
+    }
+  }
+}
+
+/* 19. 打印样式 */
+@media print {
+  #nav, .back-to-top, .hero-scroll, .hero-dots,
+  .theme-btn, .menu-btn, #regionMenu {
+    display: none !important;
+  }
+
+  .section, .section-xl {
+    padding: 20px 0;
+    page-break-inside: avoid;
+  }
+
+  .card, .chart-card {
+    page-break-inside: avoid;
+  }
+}
+
+/* 20. 性能优化 - 减少重绘 */
+.hero-slide, .region-card, .film-card, .tilt-3d {
+  will-change: auto;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* 21. 无障碍优化 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-slide {
+    transform: scale(1) !important;
+  }
+}
+
+/* 22. 对比度模式优化 */
+@media (prefers-contrast: high) {
+  :root {
+    --border: rgba(0,0,0,.2);
+    --text-2: #4a4440;
+  }
+
+  [data-theme="dark"] {
+    --border: rgba(255,255,255,.2);
+    --text-2: #b0a895;
+  }
+
+  .btn-primary, .film-filter-btn.active {
+    border: 2px solid currentColor;
+  }
+}

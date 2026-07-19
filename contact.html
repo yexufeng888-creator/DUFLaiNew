@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; font-src 'self'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>联系我们 — 被世界听懂的"土味"乡音</title>
+<meta name="description" content="联系方言电影传播研究团队——邮箱、微信公众号、在线客服">
+<meta property="og:title" content="联系我们 — 被世界听懂的「土味」乡音">
+<meta property="og:description" content="通过邮箱、微信公众号或在线客服联系大连外国语大学方言电影传播研究团队。">
+<meta property="og:image" content="assets/og-image.svg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="stylesheet" href="css/style.css?v=20260715">
+<link rel="stylesheet" href="responsive-fixes.css?v=20260719">
+<link rel="stylesheet" href="dark-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="card-typography-fixes.css?v=20260719">
+<link rel="stylesheet" href="light-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="premium-footer.css?v=20260719">
+<link rel="stylesheet" href="credits-premium.css?v=20260719">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+.contact-hero{background:var(--bg-alt);padding:80px 28px 48px;text-align:center;border-bottom:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1000px;margin:0 auto;padding:56px 28px}
+.contact-card{background:var(--card);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;border:1px solid var(--border);transition:all .4s var(--ease)}
+.contact-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.contact-card .c-icon{font-size:44px;margin-bottom:16px;display:block}
+.contact-card h3{font:600 18px/1.3 var(--font-serif);margin-bottom:8px}
+.contact-card .c-desc{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:16px}
+.contact-card .c-value{font-size:14px;font-weight:600;color:var(--accent);word-break:break-all}
+.contact-card .c-btn{display:inline-block;margin-top:14px;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;background:var(--accent);color:#fff;text-decoration:none}
+.contact-card .c-btn:hover{opacity:.9;transform:scale(1.03)}
+.contact-card .c-btn.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.contact-card .c-btn.outline:hover{background:var(--accent);color:#fff}
+/* QR */
+.qr-img{width:160px;height:160px;border-radius:12px;border:1px solid var(--border);margin:0 auto 12px;display:block;object-fit:cover}
+/* Response time */
+.response-info{text-align:center;padding:20px;max-width:600px;margin:0 auto 48px}
+.response-info .resp-item{display:inline-flex;align-items:center;gap:6px;margin:0 16px;font-size:12px;color:var(--text-3)}
+.resp-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;display:inline-block}
+
+/* Chat Widget — fixed, always available */
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:200}
+.chat-toggle{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(196,69,54,.35);transition:all .3s;border:none}
+.chat-toggle:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(196,69,54,.45)}
+.chat-toggle .unread-dot{position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:#ff3b30;border:2px solid #fff;animation:pulse 2s infinite}
+.chat-panel{position:absolute;bottom:68px;right:0;width:360px;height:480px;background:var(--card);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow-xl);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.95);pointer-events:none;transition:all .3s var(--ease)}
+.chat-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.chat-panel-header{background:var(--accent);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.chat-panel-header h4{font:600 14px/1.2 var(--font-serif)}
+.chat-panel-header .online-status{font-size:11px;opacity:.8;display:flex;align-items:center;gap:5px}
+.chat-panel-header .close-chat{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;border:none;transition:all .2s}
+.chat-panel-header .close-chat:hover{background:rgba(255,255,255,.35)}
+.chat-panel-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.chat-panel-body .sys-msg{text-align:center;font-size:11px;color:var(--text-3);padding:8px}
+.chat-bubble{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6}
+.chat-bubble.agent{background:var(--bg-alt);color:var(--text);border-top-left-radius:4px;align-self:flex-start}
+.chat-bubble.user{background:var(--accent);color:#fff;border-top-right-radius:4px;align-self:flex-end}
+.chat-panel-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+.chat-panel-input input{flex:1;padding:10px 14px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;outline:none}
+.chat-panel-input input:focus{border-color:var(--accent)}
+.chat-panel-input button{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-size:16px;border:none;cursor:pointer;flex-shrink:0;transition:all .2s}
+.chat-panel-input button:hover{opacity:.9}
+/* Quick replies */
+.quick-replies{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0}
+.quick-replies button{padding:6px 12px;border-radius:100px;font-size:11px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.quick-replies button:hover{border-color:var(--accent);color:var(--accent)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+@media(max-width:768px){
+  .contact-grid{grid-template-columns:1fr;padding:40px 20px}
+  .chat-panel{width:calc(100vw - 40px);right:-8px;height:420px}
+  .chat-toggle{width:48px;height:48px;font-size:20px;bottom:16px;right:16px}
+}
+
+/* Hamburger menu animation */
+.menu-btn span{transition:all .3s;transform-origin:center}
+.menu-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="nav-inner">
+<a href="index.html" class="brand serif">越是地方的，越是世界的</a>
+<div class="nav-links" id="navLinks">
+<a href="index.html">首页</a><a href="deep-dive.html">深度分析</a><a href="case-studies.html">案例</a><a href="timeline.html">脉络</a><a href="methodology.html">方法</a><a href="about.html">关于</a><a href="ai-query.html">AI 问答</a><a href="contact.html" class="active">联系</a>
+</div>
+<div class="nav-actions">
+<button class="theme-btn" id="themeToggle" aria-label="切换模式">🌓</button>
+
+<button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+</div></div></nav>
+
+<div class="contact-hero">
+<span class="caption">Contact Us</span>
+<h1 class="display-sm serif">联系我们</h1>
+<p class="body-lg">有任何问题或合作意向，请随时与我们取得联系</p>
+</div>
+
+<div class="response-info reveal">
+<span class="resp-item"><span class="resp-dot"></span> 工作日 9:00-18:00 在线</span>
+<span class="resp-item"><span class="resp-dot"></span> 邮件回复 &lt; 24 小时</span>
+<span class="resp-item"><span class="resp-dot"></span> 微信客服即时响应</span>
+</div>
+
+<div class="contact-grid reveal">
+<!-- Email -->
+<div class="contact-card">
+<span class="c-icon">📧</span>
+<h3>电子邮件</h3>
+<p class="c-desc">发送邮件至以下地址，我们会在 24 小时内回复</p>
+<div class="c-value">1135741343@qq.com</div>
+<div class="c-value" style="margin-top:4px">yexufeng888@gmail.com</div>
+<a href="mailto:1135741343@qq.com" class="c-btn">发送邮件</a>
+</div>
+
+<!-- WeChat -->
+<div class="contact-card">
+<span class="c-icon">💬</span>
+<h3>微信公众号</h3>
+<p class="c-desc">关注微信公众号，获取最新研究动态与电影资讯</p>
+<img src="assets/wechat-qr.jpg" alt="微信公众号二维码" class="qr-img">
+<p style="font-size:11px;color:var(--text-3)">扫描二维码关注</p>
+<button class="c-btn outline" onclick="document.getElementById('chatWidget').scrollIntoView({behavior:'smooth'}); setTimeout(()=>toggleChat(),500)">在线客服</button>
+</div>
+
+<!-- Phone/WeChat -->
+<div class="contact-card">
+<span class="c-icon">📱</span>
+<h3>在线客服</h3>
+<p class="c-desc">点击右下角客服按钮，与我们的研究助理实时对话</p>
+<p class="c-desc" style="font-size:12px;color:var(--text-3)">服务时间：工作日 9:00-18:00<br>非工作时间请留言，我们会尽快回复</p>
+<button class="c-btn" onclick="toggleChat()">💬 打开在线客服</button>
+</div>
+</div>
+
+<div class="section" style="text-align:center;padding-top:0">
+<div class="container-narrow">
+<div class="card card-pad-sm reveal" style="text-align:left">
+<h3 class="serif" style="font-size:18px;margin-bottom:12px">📋 常见咨询类型</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:var(--text-2);line-height:2">
+<div>· 学术合作与研究交流</div><div>· 数据授权与引用说明</div>
+<div>· 网站使用与技术问题</div><div>· AI 问答功能咨询</div>
+<div>· 方言电影资料贡献</div><div>· 媒体采访与报道</div>
+<div>· 建议与反馈</div><div>· 其他合作意向</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-grid">
+<div><h3>探索更多</h3><ul>
+<li>· <a href="index.html">首页：数据新闻大赛作品</a></li>
+<li>· <a href="ai-query.html">AI 问答：智能探究方言叙事</a></li>
+<li>· <a href="contact.html">联系我们：学术交流与合作</a></li>
+<li>· <a href="privacy.html">隐私政策</a></li></ul></div>
+<div><h3>联系方式</h3><ul>
+<li>· 📧 1135741343@qq.com</li>
+<li>· 📧 yexufeng888@gmail.com</li>
+<li>· 💬 微信公众号（扫码关注）</li>
+<li>· 🏫 大连外国语大学</li></ul></div>
+</div><div class="footer-bottom"><p class="quote">"真正的本土性不需要翻译，它本身就是世界性的。"</p>
+
+  <!-- Region Selector -->
+  <div class="region-selector" style="text-align:center;padding:28px 0 16px;border-top:1px solid var(--border-soft);max-width:1120px;margin:0 auto">
+    <button id="regionTrigger" onclick="toggleRegionMenu()" style="font-size:12px;color:var(--text-2);padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px">
+      <span id="currentRegionLabel">🌐 地区</span>
+      <span style="font-size:10px;opacity:.5">▾</span>
+    </button>
+    <div id="regionMenu" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);align-items:center;justify-content:center" onclick="if(event.target===this)toggleRegionMenu()">
+      <div style="background:var(--card);border-radius:20px;padding:32px 28px;max-width:380px;width:90%;border:1px solid var(--border);box-shadow:0 24px 80px rgba(0,0,0,.15);text-align:center">
+        <h3 style="font:600 18px/1.2 var(--font-serif);margin-bottom:6px">选择地区</h3>
+        <p style="font-size:11px;color:var(--text-3);margin-bottom:20px">Select your region for localized content</p>
+        <div id="regionList" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
+          <button class="region-option" data-region="zh-CN" onclick="I18N.setRegion('zh-CN');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国大陆 · 简体中文</button>
+          <button class="region-option" data-region="zh-HK" onclick="I18N.setRegion('zh-HK');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国香港 · 繁體中文</button>
+          <button class="region-option" data-region="zh-TW" onclick="I18N.setRegion('zh-TW');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国台湾 · 繁體中文</button>
+          <button class="region-option" data-region="ja" onclick="I18N.setRegion('ja');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">日本 · 日本語</button>
+          <button class="region-option" data-region="ko" onclick="I18N.setRegion('ko');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">한국 · 한국어</button>
+          <button class="region-option" data-region="ms" onclick="I18N.setRegion('ms');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">Malaysia</button>
+          <button class="region-option" data-region="en-US" onclick="I18N.setRegion('en-US');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">United States</button>
+          <button class="region-option" data-region="en-CA" onclick="I18N.setRegion('en-CA');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">Canada</button>
+        </div>
+        <button onclick="toggleRegionMenu()" style="margin-top:20px;font-size:12px;color:var(--text-3);padding:8px 24px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer">取消</button>
+      </div>
+    </div>
+    <style>
+      .region-option:hover{background:var(--accent-soft)!important;color:var(--accent)!important;border-color:var(--accent)!important;transform:scale(1.03)}
+      .region-option.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}
+      #regionMenu{display:none}
+      #regionMenu.open{display:flex!important}
+    
+/* Hamburger menu animation */
+.menu-btn span{transition:all .3s;transform-origin:center}
+.menu-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+</style>
+  </div>
+  <script>
+    function toggleRegionMenu(){document.getElementById('regionMenu').classList.toggle('open')}
+    // Update label on load
+    (function updateRegionLabel(){if(typeof I18N==='undefined'){window.addEventListener('load',updateRegionLabel,{once:true});return}var r=I18N.getRegions().find(function(r){return r.code===I18N.getRegion()});if(r){var l=document.getElementById('currentRegionLabel');if(l)l.textContent=r.name.split('·')[0].trim()}})();
+  </script><!-- Credits Block - Premium Design -->
+<div class="credits-block-premium">
+  <!-- Decorative Divider -->
+  <div class="credits-divider-premium"></div>
+
+  <!-- Universities Partnership -->
+  <div class="universities-section">
+    <div class="partnership-label">合作院校</div>
+    <div class="universities-grid">
+      <div class="university-card">
+        <div class="university-logo">
+          <img src="assets/logos/logo-dufl.jpg" alt="大连外国语大学">
+        </div>
+        <div class="university-name">大连外国语大学</div>
+      </div>
+      <div class="partnership-connector">×</div>
+      <div class="university-card">
+        <div class="university-logo">
+          <img src="assets/logos/logo-dpu-art.jpg" alt="大连工业大学艺术与信息工程学院">
+        </div>
+        <div class="university-name">大连工业大学<br>艺术与信息工程学院</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section-premium">
+    <div class="team-label-premium">制作团队</div>
+    <div class="team-grid-premium">
+      <div class="team-member-premium">
+        <div class="member-avatar">叶</div>
+        <div class="member-info">
+          <div class="member-name-premium">叶旭锋</div>
+          <div class="member-role-premium">视觉设计 · 技术开发</div>
+        </div>
+      </div>
+      <div class="team-member-premium">
+        <div class="member-avatar">王</div>
+        <div class="member-info">
+          <div class="member-name-premium">王潘婷</div>
+          <div class="member-role-premium">内容研究 · 数据分析</div>
+        </div>
+      </div>
+      <div class="team-member-premium">
+        <div class="member-avatar">王</div>
+        <div class="member-info">
+          <div class="member-name-premium">王一如</div>
+          <div class="member-role-premium">资料整理 · 文案撰写</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="copyright">© 2026 方言电影传播研究 · 大连外国语大学</p></div></footer>
+
+<!-- ====== PERSISTENT CHAT WIDGET ====== -->
+<div class="chat-widget" id="chatWidget">
+<button class="chat-toggle" onclick="toggleChat()">
+  💬
+  <span class="unread-dot" id="unreadDot"></span>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-panel-header">
+    <div>
+      <h4>方言电影研究 · 在线客服</h4>
+      <span class="online-status"><span class="resp-dot"></span> 在线</span>
+    </div>
+    <button class="close-chat" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-panel-body" id="chatBody">
+    <div class="sys-msg">— 2026年7月12日 —</div>
+    <div class="chat-bubble agent">
+      您好！👋 欢迎联系方言电影传播研究团队。<br><br>
+      我是智能客服助手，可以帮您解答常见问题。如需人工服务，请发送邮件至 <strong>1135741343@qq.com</strong>。<br><br>
+      请问有什么可以帮您的？
+    </div>
+    <div class="quick-replies" id="quickReplies">
+      <button onclick="sendQuick('我想了解这个研究项目')">📚 了解项目</button>
+      <button onclick="sendQuick('如何合作或引用数据？')">🤝 合作咨询</button>
+      <button onclick="sendQuick('AI问答功能怎么用？')">🤖 AI 使用</button>
+    </div>
+  </div>
+  <div class="chat-panel-input">
+    <input type="text" id="chatInput" placeholder="输入消息……" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button onclick="sendMsg()">➤</button>
+  </div>
+</div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/effects3d.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ===== Chat Widget ===== */
+let chatOpen = false;
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  document.getElementById('unreadDot').style.display = 'none';
+  if (chatOpen) document.getElementById('chatInput').focus();
+}
+
+/* ===== Send Message ===== */
+const replies = {
+  '项目': '这是大连外国语大学的数据新闻大赛作品——《被世界听懂的"土味"乡音》。我们以《给阿嬷的情书》为核心样本，研究方言电影如何跨越语言与地域屏障实现全球传播。<br><br>您可以浏览我们的<a href="index.html" style="color:var(--accent)">首页</a>和<a href="deep-dive.html" style="color:var(--accent)">深度分析</a>页面了解更多。',
+  '合作': '欢迎学术合作！请发送邮件至 <strong>1135741343@qq.com</strong> 或 <strong>yexufeng888@gmail.com</strong>，说明您的合作意向。我们会在 24 小时内回复。<br><br>数据引用请注明来源：大连外国语大学 · 方言电影传播研究（2026）。',
+  'AI': '我们的 <a href="ai-query.html" style="color:var(--accent)">AI 问答页面</a>支持接入 GPT-5.6、Claude Opus 4.8、DeepSeek V4 Pro、Gemini 3.5 Pro 等最新模型。<br><br>点击右上角 ⚙️ 配置 API Key 即可使用。未配置 API 时使用本地知识库回答。详见 AI 页面右上角的 <strong>? 使用指南</strong>。',
+  '联系': '您可以通过以下方式联系我们：<br>📧 1135741343@qq.com<br>📧 yexufeng888@gmail.com<br>💬 微信公众号（扫码关注）<br>🏫 大连外国语大学',
+  '感谢': '不客气！如有其他问题随时联系我们。😊',
+  '你好': '您好！有什么可以帮您的？',
+  'default': '感谢您的留言！如需详细回复，请发送邮件至 <strong>1135741343@qq.com</strong>，我们会在 24 小时内回复。您也可以关注我们的微信公众号获取最新动态。',
+};
+
+function sendQuick(msg){
+  addChatBubble('user', msg);
+  setTimeout(() => respond(msg), 600 + Math.random() * 600);
+}
+
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  addChatBubble('user', msg);
+  input.value = '';
+  setTimeout(() => respond(msg), 600 + Math.random() * 600);
+}
+
+function respond(msg){
+  let keyword = 'default';
+  if (/项目|研究|课题|内容/.test(msg)) keyword = '项目';
+  else if (/合作|引用|数据|授权/.test(msg)) keyword = '合作';
+  else if (/AI|模型|问答|怎么用/.test(msg)) keyword = 'AI';
+  else if (/联系|邮箱|微信|电话/.test(msg)) keyword = '联系';
+  else if (/谢谢|感谢|多谢/.test(msg)) keyword = '感谢';
+  else if (/你好|您好|hi|hello/.test(msg)) keyword = '你好';
+
+  addChatBubble('agent', replies[keyword]);
+  // Hide quick replies after first interaction
+  const qr = document.getElementById('quickReplies');
+  if (qr) qr.style.display = 'none';
+}
+
+function addChatBubble(type, msg){
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'chat-bubble ' + (type === 'user' ? 'user' : 'agent');
+  // XSS-safe: user messages get textContent, agent responses may contain safe HTML
+  if (type === 'user'){ div.textContent = msg; }
+  else { div.innerHTML = msg; }
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+// Show unread dot after 10s if chat not opened
+setTimeout(() => {
+  if (!chatOpen) document.getElementById('unreadDot').style.display = 'block';
+}, 10000);
+</script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com; style-src 'self' 'unsafe-inline'; frame-src https://accounts.google.com; connect-src 'self'; img-src 'self' data:; font-src 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<title>登录 — 被世界听懂的"土味"乡音</title>
+<meta name="description" content="登录方言电影传播研究平台 · 支持多种登录方式">
+<meta property="og:title" content="登录 — 被世界听懂的「土味」乡音">
+<meta property="og:image" content="assets/og-image.svg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="stylesheet" href="css/style.css?v=20260715">
+<link rel="stylesheet" href="dark-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="card-typography-fixes.css?v=20260719">
+<link rel="stylesheet" href="light-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="premium-footer.css?v=20260719">
+<link rel="stylesheet" href="credits-premium.css?v=20260719">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 20px}
+.auth-card{background:var(--card);border-radius:var(--radius-xl);padding:44px 36px;max-width:420px;width:100%;border:1px solid var(--border);box-shadow:var(--shadow-xl)}
+.auth-card .logo{text-align:center;margin-bottom:28px}
+.auth-card .logo .brand{font:600 18px var(--font-serif);display:block;margin-bottom:4px}
+.auth-card .logo .sub{font-size:10px;color:var(--text-3);letter-spacing:.08em}
+
+/* Tabs */
+.auth-tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.auth-tabs button{flex:1;padding:10px;font-size:13px;font-weight:600;color:var(--text-3);border:none;background:none;cursor:pointer;transition:all .3s;position:relative}
+.auth-tabs button.active{color:var(--accent)}
+.auth-tabs button.active::after{content:'';position:absolute;bottom:-1px;left:25%;right:25%;height:2px;background:var(--accent);border-radius:1px}
+
+/* Social login buttons */
+.social-login{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;transition:all .25s;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.social-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.social-btn img,.social-btn .s-icon{width:20px;height:20px;flex-shrink:0}
+.social-btn.apple{background:#000;color:#fff;border-color:#000}
+.social-btn.apple:hover{background:#1a1a1a}
+.social-btn.google{border-color:#e0e0e0}
+.social-btn.google:hover{background:#f8f8f8;border-color:#c0c0c0}
+.social-btn.github{background:#24292e;color:#fff;border-color:#24292e}
+.social-btn.github:hover{background:#1b1f23}
+.social-btn.wechat{background:#07c160;color:#fff;border-color:#07c160}
+.social-btn.wechat:hover{background:#06ad56}
+.social-btn.phone{border:1px dashed var(--border);color:var(--text-2)}
+.social-btn.phone:hover{border-color:var(--accent);color:var(--accent)}
+[data-theme="dark"] .social-btn.google{border-color:#444}
+[data-theme="dark"] .social-btn.google:hover{background:#222;border-color:#555}
+[data-theme="dark"] .social-btn.phone{border-color:#444}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--text-3);font-size:10px;letter-spacing:.04em}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Email form */
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:5px}
+.form-group input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;outline:none;transition:all .3s}
+.form-group input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.form-group .hint{font-size:9px;color:var(--text-3);margin-top:3px}
+.submit-btn{width:100%;padding:13px;border-radius:10px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .3s;margin-top:6px}
+.submit-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 16px rgba(196,69,54,.3)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Messages */
+.error-msg{background:var(--accent-soft);color:var(--accent);padding:10px 14px;border-radius:8px;font-size:11px;margin-bottom:14px;display:none;line-height:1.5}
+.success-msg{background:rgba(76,175,80,.1);color:#4caf50;padding:10px 14px;border-radius:8px;font-size:11px;margin-bottom:14px;display:none;line-height:1.5}
+
+/* Footer */
+.auth-footer{text-align:center;margin-top:16px;font-size:10px;color:var(--text-3);line-height:1.6}
+.auth-footer a{color:var(--accent);transition:opacity .2s}
+.auth-footer a:hover{opacity:.8}
+.back-link{text-align:center;margin-top:16px;font-size:11px}
+.back-link a{color:var(--text-3);transition:color .2s}
+.back-link a:hover{color:var(--text)}
+
+/* WeChat QR modal */
+.qr-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.qr-overlay.open{opacity:1;pointer-events:auto}
+.qr-card{background:var(--card);border-radius:var(--radius-lg);padding:36px;text-align:center;max-width:340px;width:90%;border:1px solid var(--border)}
+.qr-card h4{font:600 16px/1.3 var(--font-serif);margin-bottom:6px}
+.qr-card .qr-desc{font-size:11px;color:var(--text-3);margin-bottom:20px}
+.qr-card .qr-placeholder{width:200px;height:200px;margin:0 auto 16px;background:var(--border-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px}
+.qr-card button{padding:8px 24px;border-radius:100px;font-size:12px;color:var(--text-2);border:1px solid var(--border);background:var(--card);cursor:pointer}
+
+/* Hamburger menu animation */
+.menu-btn span{transition:all .3s;transform-origin:center}
+.menu-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+</style>
+</head>
+<body>
+
+
+<div class="auth-page">
+<div class="auth-card">
+
+<div class="logo">
+<span class="brand serif">越是地方的，越是世界的</span>
+<span class="sub">DIALECT FILM RESEARCH</span>
+</div>
+
+<!-- Tabs -->
+<div class="auth-tabs">
+<button id="tabLogin" class="active" onclick="switchTab('login')">登录</button>
+<button id="tabRegister" onclick="switchTab('register')">注册</button>
+</div>
+
+<div class="error-msg" id="errorMsg"></div>
+<div class="success-msg" id="successMsg"></div>
+
+<!-- ====== SOCIAL LOGIN ====== -->
+<div class="social-login" id="socialLogin">
+  <!-- Apple -->
+  <button class="social-btn apple" onclick="loginWithApple()">
+    <svg class="s-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+    使用 Apple 登录
+  </button>
+
+  <!-- Google -->
+  <div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="handleGoogleLogin"
+     data-auto_prompt="false">
+  </div>
+  <button class="social-btn google" onclick="triggerGoogleLogin()">
+    <svg class="s-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    使用 Google 登录
+  </button>
+
+  <!-- GitHub -->
+  <button class="social-btn github" onclick="loginWithGitHub()">
+    <svg class="s-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    使用 GitHub 登录
+  </button>
+
+  <!-- WeChat -->
+  <button class="social-btn wechat" onclick="showWeChatQR()">
+    <svg class="s-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm3.97 2.985c-3.545 0-6.427 2.461-6.427 5.49 0 2.92 2.882 5.49 6.427 5.49.375 0 .745-.028 1.108-.082a.667.667 0 01.546.075l1.572.918a.25.25 0 00.128.042c.124 0 .225-.1.225-.226 0-.055-.024-.11-.038-.164l-.3-1.145a.456.456 0 01.164-.512C21.047 19.653 22 18.36 22 16.91c0-3.028-2.882-5.49-6.432-5.49zm-2.39 3.186c.495 0 .897.408.897.91a.904.904 0 01-.897.91.904.904 0 01-.897-.91c0-.502.402-.91.897-.91zm4.246 0c.495 0 .897.408.897.91a.904.904 0 01-.897.91.904.904 0 01-.897-.91c0-.502.402-.91.897-.91z"/></svg>
+    使用微信登录
+  </button>
+</div>
+
+<div class="divider">或使用邮箱</div>
+
+<!-- ====== EMAIL LOGIN ====== -->
+<form id="loginForm" onsubmit="handleLogin(event)">
+<div class="form-group"><label>邮箱</label><input type="email" id="loginEmail" placeholder="your@email.com" required></div>
+<div class="form-group"><label>密码</label><input type="password" id="loginPassword" placeholder="输入密码" required></div>
+<button type="submit" class="submit-btn" id="loginBtn">登 录</button>
+</form>
+
+<!-- ====== EMAIL REGISTER ====== -->
+<form id="registerForm" style="display:none" onsubmit="handleRegister(event)">
+<div class="form-group"><label>姓名</label><input type="text" id="regName" placeholder="你的名字" required></div>
+<div class="form-group"><label>邮箱</label><input type="email" id="regEmail" placeholder="your@email.com" required></div>
+<div class="form-group"><label>密码</label><input type="password" id="regPassword" placeholder="至少8位密码" required minlength="8"><p class="hint">使用 PBKDF2-SHA512 + 随机盐值加密存储</p></div>
+<button type="submit" class="submit-btn" id="regBtn">注 册</button>
+</form>
+
+<div class="auth-footer">
+🔒 数据加密存储在浏览器本地 · <a href="privacy.html">隐私政策</a><br>
+第三方登录仅获取基本信息，不会访问您的私人数据
+</div>
+<div class="back-link"><a href="index.html">← 返回首页</a></div>
+
+</div></div>
+
+<!-- WeChat QR Modal -->
+<div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)closeQR()">
+<div class="qr-card">
+<h4>微信扫码登录</h4>
+<p class="qr-desc">请使用微信扫描二维码<br>此功能需配置微信开放平台</p>
+<div class="qr-placeholder">📱</div>
+<button onclick="closeQR()">关闭</button>
+</div></div>
+
+<script src="js/auth.js"></script>
+<script src="js/effects3d.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ===== Tab Switching ===== */
+function switchTab(tab){
+  const isLogin = tab==='login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabRegister').classList.toggle('active', !isLogin);
+  document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('socialLogin').style.display = isLogin ? 'flex' : 'none';
+  hideMessages();
+}
+
+/* ===== Messages ===== */
+function showError(msg){
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('successMsg').style.display = 'none';
+}
+function showSuccess(msg){
+  const el = document.getElementById('successMsg');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('errorMsg').style.display = 'none';
+}
+function hideMessages(){
+  document.getElementById('errorMsg').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'none';
+}
+
+/* ===== Social Login ===== */
+function socialLoginSuccess(provider, id, name, email){
+  const safeName = Auth.sanitize(name || (provider + '用户'));
+  const session = {
+    name: safeName,
+    email: email || (id + '@' + provider + '.social'),
+    provider: provider,
+    socialId: id,
+    loginTime: new Date().toISOString()
+  };
+  localStorage.setItem('dufl_session_v2', JSON.stringify(session));
+  showSuccess(provider + ' 登录成功！正在跳转...');
+  setTimeout(() => {
+    const redirect = sessionStorage.getItem('redirect_after_login') || 'index.html';
+    sessionStorage.removeItem('redirect_after_login');
+    window.location.href = redirect;
+  }, 600);
+}
+
+/* ---- Apple ---- */
+function loginWithApple(){
+  // Apple Sign In requires:
+  // 1. Apple Developer account with Sign In with Apple enabled
+  // 2. Service ID and redirect URI configured
+  // 3. Backend to validate the identity token
+  //
+  // For production, use Apple's JS SDK:
+  // https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js
+  //
+  // Quick demo: simulate with a prompt
+  const name = prompt('Apple 登录 (演示)\n\n生产环境需配置 Apple Developer\n输入演示用户名：', '');
+  if (name) socialLoginSuccess('Apple', 'apple_' + Date.now(), name, name.toLowerCase().replace(/\s/g,'')+'@apple.demo');
+}
+
+/* ---- Google ---- */
+function triggerGoogleLogin(){
+  // Google Identity Services — fully functional client-side
+  if (window.google && google.accounts && google.accounts.id){
+    google.accounts.id.prompt();
+  } else {
+    // Fallback: prompt for demo or show setup instructions
+    const name = prompt('Google 登录\n\n正在加载 Google Identity Services...\n如果持续未加载，输入演示用户名：', '');
+    if (name) socialLoginSuccess('Google', 'google_' + Date.now(), name, name.toLowerCase().replace(/\s/g,'')+'@gmail.demo');
+  }
+}
+
+// Google callback — called by GIS on successful sign-in
+function handleGoogleLogin(response){
+  try {
+    // Decode JWT credential to get user info
+    const payload = JSON.parse(atob(response.credential.split('.')[1]));
+    socialLoginSuccess('Google', payload.sub, payload.name, payload.email);
+  } catch(e){
+    console.error('Google login error:', e);
+    showError('Google 登录解析失败，请重试');
+  }
+}
+
+/* ---- GitHub ---- */
+function loginWithGitHub(){
+  // GitHub OAuth requires:
+  // 1. GitHub OAuth App registration
+  // 2. Client ID (safe to expose)
+  // 3. Backend proxy for token exchange (client_secret cannot be exposed)
+  //
+  // For a static site, you can use a serverless function (Cloudflare Workers, Vercel Edge)
+  // to proxy the token exchange.
+  //
+  // Demo mode:
+  const name = prompt('GitHub 登录 (演示)\n\n生产环境需配置 GitHub OAuth App\n输入演示用户名：', '');
+  if (name) socialLoginSuccess('GitHub', 'gh_' + Date.now(), name, name.toLowerCase()+'@github.demo');
+}
+
+/* ---- WeChat ---- */
+function showWeChatQR(){ document.getElementById('qrOverlay').classList.add('open'); }
+function closeQR(){ document.getElementById('qrOverlay').classList.remove('open'); }
+
+/* ===== Email Login ===== */
+async function handleLogin(e){
+  e.preventDefault(); hideMessages();
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.textContent = '登录中...';
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  try {
+    const result = await Auth.login(email, password);
+    if (result.ok){
+      showSuccess('登录成功！正在跳转...');
+      setTimeout(() => {
+        const redirect = sessionStorage.getItem('redirect_after_login') || 'index.html';
+        sessionStorage.removeItem('redirect_after_login');
+        window.location.href = redirect;
+      }, 600);
+    } else { showError(result.error); }
+  } catch(err){ showError('登录失败：' + err.message); }
+  btn.disabled = false; btn.textContent = '登 录';
+}
+
+/* ===== Email Register ===== */
+async function handleRegister(e){
+  e.preventDefault(); hideMessages();
+  const btn = document.getElementById('regBtn');
+  btn.disabled = true; btn.textContent = '注册中...';
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value;
+  try {
+    const result = await Auth.register(name, email, password);
+    if (result.ok){
+      showSuccess('注册成功！正在跳转...');
+      setTimeout(() => { window.location.href = 'index.html'; }, 600);
+    } else { showError(result.error); }
+  } catch(err){ showError('注册失败：' + err.message); }
+  btn.disabled = false; btn.textContent = '注 册';
+}
+
+document.getElementById('loginEmail').focus();
+</script>
+
+<!-- Chat Widget -->
+<div class="chat-widget" id="chatWidget" style="position:fixed;bottom:24px;right:24px;z-index:200">
+<button class="chat-toggle" onclick="toggleChat()" style="width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(196,69,54,.35);border:none;transition:all .3s;position:relative" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">💬</button>
+<div class="chat-panel" id="chatPanel" style="position:absolute;bottom:64px;right:0;width:340px;height:440px;background:var(--card);border-radius:16px;border:1px solid var(--border);box-shadow:0 12px 48px rgba(0,0,0,.15);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(16px) scale(.95);pointer-events:none;transition:all .3s">
+<div style="background:var(--accent);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;font:600 13px/1.2 var(--font-serif)"><span>💬 在线客服</span><button onclick="toggleChat()" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;border:none">✕</button></div>
+<div style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px" id="chatBodyAll">
+<div style="text-align:center;font-size:10px;color:var(--text-3);padding:6px">— 方言电影研究 · 在线客服 —</div>
+<div style="max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.6;background:var(--bg-alt);color:var(--text);border-top-left-radius:4px;align-self:flex-start">您好！👋 如需帮助请留言，或通过研究机构邮箱联系我们。</div>
+</div>
+<div style="display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--border)">
+<input type="text" id="chatInputAll" placeholder="输入消息……" style="flex:1;padding:8px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;outline:none" onkeydown="if(event.key==='Enter')sendChatMsg()">
+<button onclick="sendChatMsg()" style="width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;border:none;cursor:pointer;flex-shrink:0">➤</button>
+</div></div></div>
+<script>
+var _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;var p=document.getElementById('chatPanel');p.style.opacity=_chatOpen?'1':'0';p.style.transform=_chatOpen?'translateY(0) scale(1)':'translateY(16px) scale(.95)';p.style.pointerEvents=_chatOpen?'auto':'none';if(_chatOpen){var inp=document.getElementById('chatInputAll');if(inp)inp.focus()}}
+function sendChatMsg(){var inp=document.getElementById('chatInputAll');var m=inp.value.trim();if(!m)return;var b=document.getElementById('chatBodyAll');b.innerHTML+='<div style="max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.6;background:var(--accent);color:#fff;border-top-right-radius:4px;align-self:flex-end">'+Auth.sanitize(m)+'</div>';inp.value='';setTimeout(function(){b.innerHTML+='<div style="max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.6;background:var(--bg-alt);color:var(--text);border-top-left-radius:4px;align-self:flex-start">感谢留言！请通过研究机构邮箱联系我们，我们会尽快回复。</div>';b.scrollTop=b.scrollHeight},800);b.scrollTop=b.scrollHeight}
+</script>
+
+
+<!-- Region Selector -->
+<div class="region-selector" style="text-align:center;padding:20px;margin-top:20px">
+  <button id="regionTrigger" onclick="toggleRegionMenu()" style="font-size:12px;color:var(--text-2);padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px">
+    <span id="currentRegionLabel">地区</span>
+    <span style="font-size:10px;opacity:.5">▾</span>
+  </button>
+  <div id="regionMenu" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);align-items:center;justify-content:center" onclick="if(event.target===this)toggleRegionMenu()">
+    <div style="background:var(--card);border-radius:20px;padding:32px 28px;max-width:380px;width:90%;border:1px solid var(--border);box-shadow:0 24px 80px rgba(0,0,0,.15);text-align:center">
+      <h3 style="font:600 18px/1.2 var(--font-serif);margin-bottom:6px">选择地区</h3>
+      <p style="font-size:11px;color:var(--text-3);margin-bottom:20px">Select your region</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
+        <button class="region-option" data-region="zh-CN" onclick="I18N.setRegion('zh-CN');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国大陆 · 简体中文</button>
+        <button class="region-option" data-region="zh-HK" onclick="I18N.setRegion('zh-HK');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国香港 · 繁體中文</button>
+        <button class="region-option" data-region="zh-TW" onclick="I18N.setRegion('zh-TW');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">中国台湾 · 繁體中文</button>
+        <button class="region-option" data-region="ja" onclick="I18N.setRegion('ja');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">日本 · 日本語</button>
+        <button class="region-option" data-region="ko" onclick="I18N.setRegion('ko');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">한국 · 한국어</button>
+        <button class="region-option" data-region="ms" onclick="I18N.setRegion('ms');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">Malaysia</button>
+        <button class="region-option" data-region="en-US" onclick="I18N.setRegion('en-US');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">United States</button>
+        <button class="region-option" data-region="en-CA" onclick="I18N.setRegion('en-CA');toggleRegionMenu()" style="font-size:12px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:100px">Canada</button>
+      </div>
+      <button onclick="toggleRegionMenu()" style="margin-top:20px;font-size:12px;color:var(--text-3);padding:8px 24px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer">取消</button>
+    </div>
+  </div>
+  <style>.region-option:hover{background:var(--accent-soft)!important;color:var(--accent)!important;border-color:var(--accent)!important;transform:scale(1.03)}.region-option.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}#regionMenu{display:none}#regionMenu.open{display:flex!important}
+/* Hamburger menu animation */
+.menu-btn span{transition:all .3s;transform-origin:center}
+.menu-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+</style>
+</div>
+<script src="js/i18n.js"></script>
+<script>function toggleRegionMenu(){document.getElementById('regionMenu').classList.toggle('open')};(function updateRegionLabel(){if(typeof I18N==='undefined'){window.addEventListener('load',updateRegionLabel,{once:true});return}var r=I18N.getRegions().find(function(r){return r.code===I18N.getRegion()});if(r){var l=document.getElementById('currentRegionLabel');if(l)l.textContent=r.name.split('·')[0].trim()}})();</script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>宣传海报 · 给阿嬷的情书 · 方言电影传播研究</title>
+<style>
+  :root{
+    --accent:#c44536; --accent-lt:#e0654f;
+    --ink:#f2ebe2; --ink-dim:#b8aca0; --muted:#8c8175;
+    --bg:#161210; --bg2:#1e1815;
+    --gold:#c9a463;
+    --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#2a2724;font-family:var(--sans);display:flex;flex-direction:column;align-items:center;
+    padding:24px 0 40px;gap:16px;-webkit-font-smoothing:antialiased}
+  .bar{display:flex;gap:10px;align-items:center;color:#bbb;font-size:13px;flex-wrap:wrap;justify-content:center;max-width:405px}
+  .bar button{background:var(--accent);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--sans)}
+  .bar button:hover{background:var(--accent-lt)}
+
+  .poster{width:405px;height:720px;background:var(--bg);position:relative;overflow:hidden;
+    box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;color:var(--ink)}
+
+  /* 主视觉 */
+  .hero{position:relative;flex:1 1 auto;min-height:120px;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) contrast(1.05)}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(22,18,16,.35) 0%,rgba(22,18,16,0) 22%,rgba(22,18,16,0) 55%,rgba(22,18,16,.85) 88%,var(--bg) 100%)}
+  .brand{position:absolute;top:20px;left:20px;z-index:2;writing-mode:vertical-rl;
+    font-family:var(--serif);font-size:13px;letter-spacing:5px;color:rgba(242,235,226,.9);
+    text-shadow:0 1px 6px rgba(0,0,0,.7)}
+  .seal{position:absolute;top:20px;right:20px;z-index:2;width:50px;height:50px;border-radius:50%;
+    border:1.5px solid var(--accent-lt);color:var(--accent-lt);display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:18px;font-weight:700;background:rgba(22,18,16,.4);
+    text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  /* 标题区 —— 固定不压缩，靠 hero 吸收空间 */
+  .body{flex:0 0 auto;padding:14px 32px 0;display:flex;flex-direction:column;text-align:center}
+  .kicker{font-family:var(--serif);color:var(--accent-lt);font-size:11px;letter-spacing:7px;margin-bottom:6px}
+  .title{font-family:var(--serif);font-size:42px;font-weight:700;letter-spacing:4px;line-height:1.04;color:#fff}
+  .title-en{font-family:var(--sans);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:8px;font-weight:300}
+  .sub{font-family:var(--serif);font-size:12px;letter-spacing:2px;color:var(--ink-dim);margin-top:9px}
+  .rule{width:36px;height:1.5px;background:var(--accent);margin:12px auto 0;opacity:.8}
+
+  /* 数据 */
+  .stats{display:flex;justify-content:center;margin-top:12px}
+  .stat{padding:0 13px}
+  .stat + .stat{border-left:1px solid rgba(242,235,226,.14)}
+  .stat .num{font-family:var(--serif);color:#fff;font-size:21px;font-weight:700;line-height:1}
+  .stat .num span{font-size:11px;color:var(--accent-lt)}
+  .stat .lbl{color:var(--muted);font-size:9px;letter-spacing:1px;margin-top:5px}
+
+  .slogan{font-family:var(--serif);font-size:13px;letter-spacing:2px;line-height:1.8;color:var(--ink);margin-top:14px}
+  .slogan em{color:var(--accent-lt);font-style:normal}
+
+  /* AI 功能亮点条 */
+  .ai-bar{margin:14px auto 0;display:inline-flex;align-items:center;gap:8px;
+    padding:7px 16px;border:1px solid rgba(196,69,54,.4);border-radius:100px;
+    background:rgba(196,69,54,.08)}
+  .ai-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-lt);box-shadow:0 0 8px var(--accent-lt)}
+  .ai-bar .t{font-size:10px;letter-spacing:1px;color:var(--ink)}
+  .ai-bar .t b{color:var(--accent-lt);font-weight:600}
+
+  /* 演职员表（深色区，浅字）—— 固定不压缩 */
+  .credits{flex:0 0 auto;padding:14px 32px 0;text-align:center}
+  .role{font-size:9.5px;letter-spacing:2px;color:var(--muted);line-height:1.9}
+  .role b{color:var(--ink);font-family:var(--serif);font-size:11px;letter-spacing:1px;font-weight:400}
+
+  /* 纯过渡带：深色渐隐到白，不放任何文字，隔开深色区与白纸 */
+  .fade{flex:0 0 auto;height:26px;background:linear-gradient(180deg,var(--bg) 0%,#fff 100%)}
+
+  /* 底部纯白署名纸：白底 logo 用正片叠底彻底融入 */
+  .paper{flex:0 0 auto;background:#fff;padding:4px 20px 14px}
+  .paper .tag{font-size:8px;letter-spacing:4px;color:#a89f94;margin-bottom:10px;text-align:center}
+  .logos{display:flex;align-items:center;justify-content:center;gap:20px}
+  .logos img{object-fit:contain;display:block;mix-blend-mode:multiply}
+  .logos .divider{width:1px;height:38px;background:rgba(0,0,0,.12)}
+
+  /* 二维码 + 三层鸣谢 并排 */
+  .foot{margin-top:12px;padding-top:11px;border-top:1px solid rgba(0,0,0,.08);
+    display:flex;align-items:center;gap:12px}
+  .qr-box{flex:0 0 auto;text-align:center}
+  .qr-box img{width:60px;height:60px;object-fit:cover;display:block;border-radius:4px}
+  .qr-box .qlbl{font-size:6.5px;letter-spacing:.5px;color:#8a7f72;margin-top:3px}
+  .thanks{flex:1;text-align:left;font-size:7px;letter-spacing:.3px;color:#8a7f72;line-height:1.85}
+  .thanks .row{margin-bottom:3px}
+  .thanks .k{color:#b0a599;display:inline-block}
+  .thanks b{color:#3a332c;font-weight:600}
+  .paper .thanks b{color:#3a332c;font-weight:600}
+  .paper .site{margin-top:11px;font-size:9px;letter-spacing:1.5px;color:var(--accent);text-align:center;font-weight:600}
+</style>
+</head>
+<body>
+  <div class="bar">
+    <button onclick="exportPoster()">⬇ 导出高清图 (1080×1920)</button>
+    <span>或右键海报「存储图像」</span>
+  </div>
+
+  <div class="poster" id="poster">
+    <div class="hero">
+      <div class="brand">方言电影传播研究 · DUFL</div>
+      <div class="seal">情</div>
+      <img src="assets/images/posters/IMG_9273.jpg" alt="剧照">
+    </div>
+
+    <div class="body">
+      <div class="kicker">2026 · 潮汕方言电影</div>
+      <h1 class="title">给阿嬷的情书</h1>
+      <div class="title-en">A Love Letter to Grandma</div>
+      <div class="sub">一封写给故土与亲情的银幕家书</div>
+      <div class="rule"></div>
+
+      <div class="stats">
+        <div class="stat"><div class="num">19<span>亿</span></div><div class="lbl">累计票房</div></div>
+        <div class="stat"><div class="num">9.3</div><div class="lbl">豆瓣评分</div></div>
+        <div class="stat"><div class="num">10<span>+</span></div><div class="lbl">国家上映</div></div>
+        <div class="stat"><div class="num">95<span>%</span></div><div class="lbl">潮汕方言</div></div>
+      </div>
+
+      <div class="slogan">方言不是壁垒，是<em>文化坐标</em><br>最本土的，恰恰是<em>最世界的</em></div>
+
+      <div class="ai-bar">
+        <span class="dot"></span>
+        <span class="t">网站内置 <b>AI 智能问答</b> · 深度解析票房 · 方言 · 传播数据</span>
+      </div>
+
+      <div class="credits">
+        <div class="role">视觉与技术　<b>叶旭锋</b></div>
+        <div class="role">跨文化研究 · 内容与数据　<b>王潘婷　王一如</b></div>
+      </div>
+    </div>
+
+    <div class="fade"></div>
+
+    <div class="paper">
+      <div class="tag">联 合 出 品 · 指 导 单 位</div>
+      <div class="logos">
+        <img src="assets/logos/logo-dufl.jpg" alt="大连外国语大学" style="height:56px">
+        <span class="divider"></span>
+        <img src="assets/logos/logo-dpu-art.jpg" alt="大连工业大学艺术与信息工程学院" style="height:36px">
+      </div>
+      <div class="foot">
+        <div class="qr-box">
+          <img src="assets/logos/qr-mp.jpg" alt="公众号">
+          <div class="qlbl">扫码关注公众号</div>
+        </div>
+        <div class="thanks">
+          <div class="row"><span class="k">数据与图表技术支持　</span><b>镝数聚 DyData · Apache ECharts · 猫眼专业版 · 灯塔专业版</b></div>
+          <div class="row"><span class="k">文化与学术资源鸣谢　</span><b>潮汕历史文化研究中心 · 中国电影资料馆 · 湃客工坊</b></div>
+          <div class="row"><span class="k">国际联络与媒体支持　</span><b>新华网 · 澎湃新闻 · 中国青年报 · 世界华侨传播协会</b></div>
+        </div>
+      </div>
+      <div class="site">github.com/yexufeng888-creator/DUFLeNEW</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+  <script>
+    async function exportPoster(){
+      const node = document.getElementById('poster');
+      try{
+        const dataUrl = await htmlToImage.toPng(node,{pixelRatio:2.666,cacheBust:true,backgroundColor:'#161210'});
+        const a=document.createElement('a');
+        a.download='给阿嬷的情书-宣传海报.png';a.href=dataUrl;a.click();
+      }catch(e){ alert('导出失败：'+e.message+'\n\n可改用右键海报→存储图像，或截图。'); }
+    }
+  </script>
+</body>
+</html>

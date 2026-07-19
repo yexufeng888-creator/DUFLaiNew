@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>暗色模式对比测试 - DUFL v2</title>
+<link rel="stylesheet" href="css/style.css?v=20260719">
+<link rel="stylesheet" href="responsive-fixes.css?v=20260719">
+<link rel="stylesheet" href="dark-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="card-typography-fixes.css?v=20260719">
+<link rel="stylesheet" href="light-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="premium-footer.css?v=20260719">
+<link rel="stylesheet" href="credits-premium.css?v=20260719">
+<style>
+.test-wrapper {
+  min-height: 100vh;
+  padding: var(--space-12) var(--space-6);
+}
+.test-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  padding: var(--space-8);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+.theme-toggle-demo {
+  display: inline-flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--bg-alt);
+  border-radius: var(--radius-full);
+  margin: var(--space-6) 0;
+}
+.theme-btn-demo {
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+.theme-btn-demo.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.test-section {
+  margin-bottom: var(--space-12);
+}
+.test-section h2 {
+  font-size: 24px;
+  margin-bottom: var(--space-6);
+  color: var(--text);
+}
+.demo-card {
+  padding: var(--space-6);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  transition: all 0.4s;
+}
+.demo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-4);
+}
+.color-item {
+  padding: var(--space-5);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 11px;
+  border: 1px solid var(--border);
+}
+.contrast-test {
+  padding: var(--space-6);
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  margin: var(--space-4) 0;
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand serif">暗色模式测试</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">返回首页</a>
+      <a href="contact.html">测试联系页</a>
+      <a href="about.html">测试关于页</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeToggle" aria-label="切换模式">🌓</button>
+      <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div style="height:var(--nav-h)"></div>
+
+<div class="test-wrapper">
+
+  <div class="test-header">
+    <h1 class="display-sm serif">🌓 暗色模式对比测试</h1>
+    <p class="body" style="margin-top:var(--space-4)">测试暗色模式下的视觉对比度和可读性</p>
+
+    <div class="theme-toggle-demo">
+      <button class="theme-btn-demo" onclick="setTheme('light')">☀️ 浅色模式</button>
+      <button class="theme-btn-demo" onclick="setTheme('dark')">🌙 暗色模式</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="test-section">
+      <h2 class="serif">📋 卡片对比度测试</h2>
+      <div class="test-grid">
+        <div class="card" style="padding:var(--space-6)">
+          <h3 style="font-size:18px;margin-bottom:8px">标准卡片</h3>
+          <p class="body-sm" style="margin-bottom:12px">这是一段测试文本，用于检查卡片在暗色模式下的可读性。文字应该清晰可见，对比度适中。</p>
+          <div style="color:var(--accent);font-weight:600">强调文本</div>
+        </div>
+
+        <div class="demo-card">
+          <span style="font-size:32px;display:block;margin-bottom:8px">📧</span>
+          <h3 style="font-size:16px;margin-bottom:8px">带图标卡片</h3>
+          <p style="font-size:13px;color:var(--text-2);margin-bottom:12px">联系邮箱或其他信息</p>
+          <div style="font-weight:600;color:var(--accent)">example@email.com</div>
+        </div>
+
+        <div class="card" style="padding:var(--space-6);background:var(--card)">
+          <h3 style="font-size:18px;margin-bottom:8px">固定背景卡片</h3>
+          <p class="body-sm">使用 --card 变量的卡片，在暗色模式下应该有良好的对比度。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2 class="serif">🎨 颜色变量测试</h2>
+      <div class="color-palette">
+        <div class="color-item" style="background:var(--text);color:var(--bg)">
+          --text<br>主要文本
+        </div>
+        <div class="color-item" style="background:var(--text-2);color:var(--bg)">
+          --text-2<br>次要文本
+        </div>
+        <div class="color-item" style="background:var(--text-3);color:var(--bg)">
+          --text-3<br>辅助文本
+        </div>
+        <div class="color-item" style="background:var(--accent);color:#fff">
+          --accent<br>强调色
+        </div>
+        <div class="color-item" style="background:var(--bg-elevated);border:2px solid var(--border)">
+          --bg-elevated<br>卡片背景
+        </div>
+        <div class="color-item" style="background:var(--card);border:2px solid var(--border)">
+          --card<br>固定背景
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2 class="serif">📝 文字层级测试</h2>
+      <div class="card" style="padding:var(--space-8)">
+        <h1 style="font-size:32px;margin-bottom:16px;color:var(--text)">一级标题 H1</h1>
+        <h2 style="font-size:24px;margin-bottom:12px;color:var(--text)">二级标题 H2</h2>
+        <h3 style="font-size:18px;margin-bottom:10px;color:var(--text)">三级标题 H3</h3>
+        <p class="body" style="margin-bottom:12px">正文段落 - 这是一段正文文本，应该在暗色模式下清晰可读。</p>
+        <p class="body-sm" style="margin-bottom:12px;color:var(--text-2)">次要文本 - 使用 --text-2 颜色变量。</p>
+        <p style="font-size:12px;color:var(--text-3)">辅助文本 - 使用 --text-3 颜色变量，对比度较低。</p>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2 class="serif">🔘 按钮测试</h2>
+      <div style="display:flex;gap:var(--space-4);flex-wrap:wrap">
+        <button class="btn btn-primary">主要按钮</button>
+        <button class="btn btn-secondary">次要按钮</button>
+        <button class="btn btn-ghost">幽灵按钮</button>
+        <button style="padding:10px 22px;border-radius:100px;background:var(--accent);color:#fff;border:none;cursor:pointer">自定义按钮</button>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2 class="serif">📊 对比度检查清单</h2>
+      <div class="card" style="padding:var(--space-8)">
+        <div class="contrast-test">
+          <strong style="display:block;margin-bottom:8px">✅ 必须满足的条件：</strong>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--border)">
+              <strong>主要文本 (--text):</strong> 清晰可读，对比度 ≥ 4.5:1
+            </li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--border)">
+              <strong>次要文本 (--text-2):</strong> 可读，对比度 ≥ 3:1
+            </li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--border)">
+              <strong>卡片边框:</strong> 可见但不刺眼
+            </li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--border)">
+              <strong>强调色 (--accent):</strong> 醒目但不刺眼
+            </li>
+            <li style="padding:6px 0">
+              <strong>按钮:</strong> 清晰可见，hover状态明显
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2 class="serif">🎯 实际页面测试</h2>
+      <div class="test-grid">
+        <div class="card" style="padding:var(--space-6);text-align:center">
+          <span style="font-size:48px">📧</span>
+          <h3 style="margin:12px 0 8px">联系页面</h3>
+          <p class="body-sm" style="margin-bottom:16px">测试联系页面的卡片显示</p>
+          <a href="contact.html" class="btn btn-primary">打开联系页面</a>
+        </div>
+
+        <div class="card" style="padding:var(--space-6);text-align:center">
+          <span style="font-size:48px">ℹ️</span>
+          <h3 style="margin:12px 0 8px">关于页面</h3>
+          <p class="body-sm" style="margin-bottom:16px">测试关于页面的显示效果</p>
+          <a href="about.html" class="btn btn-primary">打开关于页面</a>
+        </div>
+
+        <div class="card" style="padding:var(--space-6);text-align:center">
+          <span style="font-size:48px">🏠</span>
+          <h3 style="margin:12px 0 8px">主页</h3>
+          <p class="body-sm" style="margin-bottom:16px">返回网站主页</p>
+          <a href="index.html" class="btn btn-secondary">返回主页</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer style="padding:var(--space-12) var(--space-6);text-align:center;border-top:1px solid var(--border)">
+  <p style="font-size:13px;color:var(--text-2)">
+    暗色模式测试页面 ·
+    <a href="index.html" style="color:var(--accent)">返回主页</a>
+  </p>
+</footer>
+
+<script>
+// 主题切换
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  updateActiveButton();
+}
+
+function updateActiveButton() {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  document.querySelectorAll('.theme-btn-demo').forEach((btn, i) => {
+    btn.classList.toggle('active', (i === 0 && theme === 'light') || (i === 1 && theme === 'dark'));
+  });
+}
+
+// 初始化主题
+function initTheme(){
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches)){
+    html.setAttribute('data-theme','dark');
+  }
+  updateActiveButton();
+
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+  });
+}
+
+// 导航菜单
+function initNav(){
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks){
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      menuBtn.classList.toggle('open');
+    });
+  }
+}
+
+initTheme();
+initNav();
+</script>
+
+</body>
+</html>

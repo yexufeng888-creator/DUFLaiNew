@@ -1,0 +1,318 @@
+/* ============================================================
+   暗色模式视觉优化 - Dark Mode Visual Enhancements
+   修复暗色模式下对比度过低、内容难以阅读的问题
+   ============================================================ */
+
+/* 1. 增强暗色模式下的卡片对比度 */
+[data-theme="dark"] .card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .evidence-card,
+[data-theme="dark"] .dd-card,
+[data-theme="dark"] .insight-card,
+[data-theme="dark"] .case-card,
+[data-theme="dark"] .film-card,
+[data-theme="dark"] .method-card,
+[data-theme="dark"] .source-card,
+[data-theme="dark"] .history-event,
+[data-theme="dark"] .analysis-card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .contact-card {
+  background: rgba(28, 28, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6),
+              0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .stat-card:hover,
+[data-theme="dark"] .evidence-card:hover,
+[data-theme="dark"] .contact-card:hover {
+  background: rgba(35, 35, 35, 0.98);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7),
+              0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 2. 增强文字对比度 */
+[data-theme="dark"] {
+  --text: #f5f0e8;
+  --text-2: #b8b0a0;
+  --text-3: #7a7366;
+}
+
+/* 3. 优化卡片内部元素 */
+[data-theme="dark"] .contact-card h3,
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .card h4,
+[data-theme="dark"] .card h5 {
+  color: #f5f0e8;
+}
+
+[data-theme="dark"] .c-desc,
+[data-theme="dark"] .card .body,
+[data-theme="dark"] .card p {
+  color: #b8b0a0;
+}
+
+[data-theme="dark"] .c-value {
+  color: #e8897a;
+  font-weight: 600;
+}
+
+/* 4. 二维码图片边框 */
+[data-theme="dark"] .qr-img {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px;
+}
+
+/* 5. 按钮对比度 */
+[data-theme="dark"] .c-btn {
+  background: #e8897a;
+  color: #1a1814;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(232, 137, 122, 0.3);
+}
+
+[data-theme="dark"] .c-btn:hover {
+  background: #f09a8d;
+  box-shadow: 0 4px 20px rgba(232, 137, 122, 0.4);
+}
+
+[data-theme="dark"] .c-btn.outline {
+  background: transparent;
+  color: #e8897a;
+  border: 2px solid #e8897a;
+}
+
+[data-theme="dark"] .c-btn.outline:hover {
+  background: #e8897a;
+  color: #1a1814;
+}
+
+/* 6. 增强hero区域 */
+[data-theme="dark"] .contact-hero,
+[data-theme="dark"] .page-hero {
+  background: rgba(15, 15, 15, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 7. 聊天面板优化 */
+[data-theme="dark"] .chat-panel {
+  background: rgba(20, 20, 20, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .chat-bubble.agent {
+  background: rgba(40, 40, 40, 0.9);
+  color: #f5f0e8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .chat-panel-input {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 15, 15, 0.5);
+}
+
+[data-theme="dark"] .chat-panel-input input {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f0e8;
+}
+
+/* 8. 响应标识点 */
+[data-theme="dark"] .resp-dot {
+  background: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+}
+
+/* 9. 关于页面卡片优化 */
+[data-theme="dark"] .profile-avatar {
+  background: linear-gradient(135deg,
+    rgba(232, 137, 122, 0.15) 0%,
+    rgba(212, 168, 83, 0.15) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: #e8897a;
+  font-size: 64px;
+  font-weight: 600;
+}
+
+/* 10. Footer优化 */
+[data-theme="dark"] footer {
+  background: rgba(12, 12, 12, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] footer h3 {
+  color: #f5f0e8;
+}
+
+[data-theme="dark"] footer ul li {
+  color: #b8b0a0;
+}
+
+[data-theme="dark"] footer ul li a:hover {
+  color: #e8897a;
+}
+
+/* 11. 引用块优化 */
+[data-theme="dark"] .quote {
+  color: #d4c4b0;
+}
+
+/* 12. 区域选择器暗色优化 */
+[data-theme="dark"] #regionMenu > div {
+  background: rgba(22, 22, 22, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] .region-option {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b8b0a0;
+}
+
+[data-theme="dark"] .region-option:hover {
+  background: rgba(232, 137, 122, 0.15) !important;
+  border-color: #e8897a !important;
+  color: #e8897a !important;
+}
+
+[data-theme="dark"] .region-option.active {
+  background: #e8897a !important;
+  color: #1a1814 !important;
+}
+
+/* 13. Logo混合模式修复 */
+[data-theme="dark"] .credits-block img {
+  mix-blend-mode: lighten;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+/* 14. 分隔线优化 */
+[data-theme="dark"] .footer-bottom,
+[data-theme="dark"] .credits-block {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* 15. 快速回复按钮 */
+[data-theme="dark"] .quick-replies button {
+  background: rgba(35, 35, 35, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b8b0a0;
+}
+
+[data-theme="dark"] .quick-replies button:hover {
+  border-color: #e8897a;
+  color: #e8897a;
+  background: rgba(232, 137, 122, 0.1);
+}
+
+/* 16. 表格内容显示优化 */
+[data-theme="dark"] .card > div[style*="border-bottom"] {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .card span[style*="color:var(--text-3)"] {
+  color: #7a7366 !important;
+}
+
+[data-theme="dark"] .card span[style*="color:var(--accent)"] {
+  color: #e8897a !important;
+}
+
+/* 16.1 卡片内部表格行优化 */
+[data-theme="dark"] .card > div[style*="display:flex"] {
+  padding: 14px 0;
+}
+
+[data-theme="dark"] .card > div[style*="display:flex"] span {
+  line-height: 1.6;
+}
+
+/* 17. 常见问题网格 */
+[data-theme="dark"] .card .body-sm,
+[data-theme="dark"] .card > div[style*="grid-template-columns"] {
+  color: #b8b0a0;
+}
+
+/* 18. 响应信息标签 */
+[data-theme="dark"] .response-info {
+  color: #b8b0a0;
+}
+
+[data-theme="dark"] .resp-item {
+  color: #b8b0a0;
+}
+
+/* 19. 图标emoji增强 */
+[data-theme="dark"] .c-icon {
+  filter: brightness(1.1) contrast(1.05);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* 20. 焦点状态优化 */
+[data-theme="dark"] :focus-visible {
+  outline-color: #e8897a;
+  outline-offset: 3px;
+}
+
+/* 21. 选中文本优化 */
+[data-theme="dark"] ::selection {
+  background: #e8897a;
+  color: #1a1814;
+}
+
+/* 22. 移动端优化 */
+@media(max-width: 768px) {
+  [data-theme="dark"] .contact-card,
+  [data-theme="dark"] .card {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  [data-theme="dark"] .contact-hero,
+  [data-theme="dark"] .page-hero {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 23. 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  [data-theme="dark"] .card,
+  [data-theme="dark"] .contact-card {
+    border: 2px solid rgba(255, 255, 255, 0.25);
+  }
+
+  [data-theme="dark"] .c-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* 24. 确保所有文本可读 */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #f5f0e8;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div {
+  color: inherit;
+}
+
+/* 25. 强调色优化 */
+[data-theme="dark"] strong {
+  color: #f5f0e8;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .serif {
+  color: inherit;
+}

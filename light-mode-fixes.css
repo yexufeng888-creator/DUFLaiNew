@@ -1,0 +1,267 @@
+/* ============================================================
+   浅色模式卡片修复 - Light Mode Card Fixes
+   修复浅色模式下卡片内容不可见的问题
+   ============================================================ */
+
+/* 1. 扩大卡片尺寸，增加内边距 */
+.contact-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 48px 36px !important;
+  min-height: 420px;
+}
+
+.contact-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* 2. 扩大About页面卡片 */
+.card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  padding: 32px 28px !important;
+  min-height: auto;
+}
+
+/* 3. 增加卡片内部元素间距 */
+.contact-card .c-icon {
+  font-size: 52px;
+  margin-bottom: 20px;
+  display: block;
+  opacity: 1;
+  filter: none;
+}
+
+.contact-card h3 {
+  font-size: 20px !important;
+  margin-bottom: 14px !important;
+  line-height: 1.4;
+  color: #1a1814 !important;
+}
+
+.contact-card .c-desc {
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+  margin-bottom: 18px !important;
+  color: #6b6358 !important;
+}
+
+.contact-card .c-value {
+  font-size: 15px !important;
+  font-weight: 600;
+  line-height: 1.6;
+  margin: 8px 0 !important;
+  color: #1a1814 !important;
+}
+
+.contact-card .c-btn {
+  margin-top: 20px !important;
+  padding: 12px 28px !important;
+  font-size: 14px !important;
+  background: #c44536 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.contact-card .c-btn.outline {
+  background: transparent !important;
+  color: #c44536 !important;
+  border: 2px solid #c44536 !important;
+}
+
+.contact-card .c-btn.outline:hover {
+  background: #c44536 !important;
+  color: #fff !important;
+}
+
+/* 4. 二维码图片扩大 */
+.qr-img {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  margin: 12px auto 16px !important;
+  display: block;
+}
+
+/* 5. About页面表格行间距 */
+.card > div[style*="display:flex"] {
+  padding: 16px 0 !important;
+  min-height: 52px;
+}
+
+.card > div[style*="display:flex"] span {
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  color: inherit !important;
+}
+
+.card > div[style*="display:flex"] span:first-child {
+  color: #6b6358 !important;
+}
+
+.card > div[style*="display:flex"] span:last-child {
+  color: #1a1814 !important;
+  font-weight: 500;
+}
+
+/* 6. 边框颜色 */
+.card > div[style*="border-bottom"] {
+  border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 7. 强调色文字 */
+.card span[style*="color:var(--accent)"],
+.contact-card .c-value {
+  color: #c44536 !important;
+}
+
+/* 8. 其他卡片类型 */
+.stat-card,
+.evidence-card,
+.dd-card,
+.insight-card,
+.case-card,
+.film-card,
+.method-card,
+.source-card,
+.analysis-card,
+.chart-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* 9. Footer 区域 */
+footer {
+  background: #faf8f5;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+footer h3 {
+  color: #1a1814;
+}
+
+footer ul li {
+  color: #6b6358;
+  padding: 8px 0;
+  line-height: 1.8;
+}
+
+footer ul li a {
+  color: #6b6358;
+}
+
+footer ul li a:hover {
+  color: #c44536;
+}
+
+/* 10. 响应式 - 平板 */
+@media(max-width: 1024px) {
+  .contact-card {
+    padding: 40px 32px !important;
+    min-height: 400px;
+  }
+}
+
+/* 11. 响应式 - 手机 */
+@media(max-width: 768px) {
+  .contact-card {
+    padding: 36px 28px !important;
+    min-height: 380px;
+  }
+
+  .contact-card .c-icon {
+    font-size: 48px;
+    margin-bottom: 18px;
+  }
+
+  .contact-card h3 {
+    font-size: 19px !important;
+  }
+}
+
+@media(max-width: 480px) {
+  .contact-card {
+    padding: 32px 24px !important;
+    min-height: 360px;
+  }
+
+  .contact-card .c-icon {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+
+  .contact-card h3 {
+    font-size: 18px !important;
+  }
+
+  .qr-img {
+    width: 160px !important;
+    height: 160px !important;
+  }
+}
+
+/* 12. 暗色模式保护 - 确保暗色模式不受影响 */
+[data-theme="dark"] .card,
+[data-theme="dark"] .contact-card {
+  background: rgba(28, 28, 28, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .contact-card h3,
+[data-theme="dark"] .card h3 {
+  color: #f5f0e8 !important;
+}
+
+[data-theme="dark"] .contact-card .c-desc,
+[data-theme="dark"] .contact-card p,
+[data-theme="dark"] .card p {
+  color: #b8b0a0 !important;
+}
+
+[data-theme="dark"] .contact-card .c-value {
+  color: #e8897a !important;
+}
+
+[data-theme="dark"] .card > div[style*="display:flex"] span:first-child {
+  color: #b8b0a0 !important;
+}
+
+[data-theme="dark"] .card > div[style*="display:flex"] span:last-child {
+  color: #f5f0e8 !important;
+}
+
+[data-theme="dark"] .qr-img {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* 13. 统计卡片 */
+.stat-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.stat-card .val {
+  color: #c44536 !important;
+}
+
+.stat-card .lbl {
+  color: #6b6358 !important;
+}
+
+[data-theme="dark"] .stat-card {
+  background: rgba(28, 28, 28, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] .stat-card .val {
+  color: #e8897a !important;
+}
+
+[data-theme="dark"] .stat-card .lbl {
+  color: #b8b0a0 !important;
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>响应式显示测试 - DUFL</title>
+<link rel="stylesheet" href="css/style.css?v=20260719">
+<link rel="stylesheet" href="dark-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="card-typography-fixes.css?v=20260719">
+<link rel="stylesheet" href="light-mode-fixes.css?v=20260719">
+<link rel="stylesheet" href="premium-footer.css?v=20260719">
+<link rel="stylesheet" href="credits-premium.css?v=20260719">
+<link rel="stylesheet" href="responsive-fixes.css?v=20260719">
+<style>
+  .test-container {
+    padding: var(--space-12) var(--space-8);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .test-section {
+    margin-bottom: var(--space-16);
+    padding: var(--space-8);
+    background: var(--bg-elevated);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+  .device-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .info-card {
+    padding: var(--space-4);
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  .info-label {
+    font-size: 10px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .info-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .breakpoint-indicator {
+    padding: var(--space-5);
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-6);
+  }
+  .bp-item {
+    display: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    margin: 4px;
+  }
+  .test-grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+  @media(min-width:1367px) { .bp-desktop-xl { display: inline-block; background: #4caf50; color: white; } }
+  @media(min-width:1025px) and (max-width:1366px) { .bp-desktop { display: inline-block; background: #2196f3; color: white; } }
+  @media(min-width:769px) and (max-width:1024px) { .bp-tablet { display: inline-block; background: #ff9800; color: white; } }
+  @media(min-width:481px) and (max-width:768px) { .bp-mobile-l { display: inline-block; background: #f44336; color: white; } }
+  @media(max-width:480px) { .bp-mobile-s { display: inline-block; background: #9c27b0; color: white; } }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand serif">响应式测试</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">返回首页</a>
+      <a href="#device-info">设备信息</a>
+      <a href="#typography">排版测试</a>
+      <a href="#layout">布局测试</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeToggle" aria-label="切换模式">🌓</button>
+      <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div style="height:var(--nav-h)"></div>
+
+<div class="test-container">
+
+  <div class="test-section" id="device-info">
+    <h2 class="heading-sm serif" style="margin-bottom:var(--space-6)">📱 设备信息检测</h2>
+
+    <div class="breakpoint-indicator">
+      <strong style="font-size:13px;color:var(--text-2);margin-bottom:8px;display:block">当前断点：</strong>
+      <span class="bp-item bp-desktop-xl">🖥️ 超大桌面 (>1366px)</span>
+      <span class="bp-item bp-desktop">💻 桌面 (1025px-1366px)</span>
+      <span class="bp-item bp-tablet">📱 平板 (769px-1024px)</span>
+      <span class="bp-item bp-mobile-l">📱 大屏手机 (481px-768px)</span>
+      <span class="bp-item bp-mobile-s">📱 小屏手机 (≤480px)</span>
+    </div>
+
+    <div class="device-info">
+      <div class="info-card">
+        <div class="info-label">屏幕宽度</div>
+        <div class="info-value" id="screenWidth">-</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">屏幕高度</div>
+        <div class="info-value" id="screenHeight">-</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">视口宽度</div>
+        <div class="info-value" id="viewportWidth">-</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">视口高度</div>
+        <div class="info-value" id="viewportHeight">-</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">设备像素比</div>
+        <div class="info-value" id="dpr">-</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">方向</div>
+        <div class="info-value" id="orientation">-</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-section" id="typography">
+    <h2 class="heading-sm serif" style="margin-bottom:var(--space-6)">📝 排版测试</h2>
+
+    <div style="margin-bottom:var(--space-8)">
+      <h1 class="display serif" style="margin-bottom:var(--space-4)">Display 超大标题</h1>
+      <h2 class="heading serif" style="margin-bottom:var(--space-3)">Heading 大标题</h2>
+      <h3 class="heading-sm serif" style="margin-bottom:var(--space-3)">Heading-sm 中标题</h3>
+      <p class="body-lg" style="margin-bottom:var(--space-3)">Body-lg 大正文 - 这是一段测试文本，用于检查排版在不同设备上的显示效果。</p>
+      <p class="body" style="margin-bottom:var(--space-3)">Body 正文 - 这是一段测试文本，用于检查排版在不同设备上的显示效果。</p>
+      <p class="body-sm">Body-sm 小正文 - 这是一段测试文本，用于检查排版在不同设备上的显示效果。</p>
+    </div>
+
+    <div class="caption" style="margin-bottom:var(--space-3)">Caption 小标签</div>
+  </div>
+
+  <div class="test-section" id="layout">
+    <h2 class="heading-sm serif" style="margin-bottom:var(--space-6)">📐 布局测试</h2>
+
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:var(--space-4)">2列网格</h3>
+    <div class="grid-2" style="margin-bottom:var(--space-8)">
+      <div class="card" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">📊</div>
+        <p style="font-size:13px">卡片 1</p>
+      </div>
+      <div class="card" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">📈</div>
+        <p style="font-size:13px">卡片 2</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:var(--space-4)">3列网格</h3>
+    <div class="grid-3" style="margin-bottom:var(--space-8)">
+      <div class="card" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">🎬</div>
+        <p style="font-size:13px">卡片 1</p>
+      </div>
+      <div class="card" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">🎭</div>
+        <p style="font-size:13px">卡片 2</p>
+      </div>
+      <div class="card" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">🎪</div>
+        <p style="font-size:13px">卡片 3</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:var(--space-4)">4列网格</h3>
+    <div class="grid-4" style="margin-bottom:var(--space-8)">
+      <div class="card" style="padding:var(--space-5);text-align:center">
+        <div style="font-size:24px;margin-bottom:6px">📱</div>
+        <p style="font-size:12px">卡片 1</p>
+      </div>
+      <div class="card" style="padding:var(--space-5);text-align:center">
+        <div style="font-size:24px;margin-bottom:6px">💻</div>
+        <p style="font-size:12px">卡片 2</p>
+      </div>
+      <div class="card" style="padding:var(--space-5);text-align:center">
+        <div style="font-size:24px;margin-bottom:6px">🖥️</div>
+        <p style="font-size:12px">卡片 3</p>
+      </div>
+      <div class="card" style="padding:var(--space-5);text-align:center">
+        <div style="font-size:24px;margin-bottom:6px">⌚</div>
+        <p style="font-size:12px">卡片 4</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:var(--space-4)">统计卡片网格</h3>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="val">19 亿</span>
+        <span class="lbl">累计票房</span>
+      </div>
+      <div class="stat-card">
+        <span class="val">9.3</span>
+        <span class="lbl">豆瓣评分</span>
+      </div>
+      <div class="stat-card">
+        <span class="val">10+</span>
+        <span class="lbl">全球上映</span>
+      </div>
+      <div class="stat-card">
+        <span class="val">100亿</span>
+        <span class="lbl">传播人次</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2 class="heading-sm serif" style="margin-bottom:var(--space-6)">🎨 交互元素测试</h2>
+
+    <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <button class="btn btn-primary">主要按钮</button>
+      <button class="btn btn-secondary">次要按钮</button>
+      <button class="btn btn-ghost">幽灵按钮</button>
+    </div>
+
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="film-filter-btn active">全部</button>
+      <button class="film-filter-btn">闽南语</button>
+      <button class="film-filter-btn">粤语</button>
+      <button class="film-filter-btn">吴语</button>
+      <button class="film-filter-btn">官话区</button>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2 class="heading-sm serif" style="margin-bottom:var(--space-6)">✅ 测试通过标准</h2>
+    <ul style="font-size:14px;line-height:2;color:var(--text-2)">
+      <li>✓ 所有文本清晰可读，无溢出</li>
+      <li>✓ 导航菜单在移动端可正常展开和收起</li>
+      <li>✓ 卡片布局自适应，无内容溢出</li>
+      <li>✓ 图片自适应容器大小</li>
+      <li>✓ 按钮和链接触摸区域足够大（≥44px）</li>
+      <li>✓ 横屏和竖屏模式都能正常显示</li>
+      <li>✓ 页面无横向滚动条</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer style="padding:var(--space-12) var(--space-8);border-top:1px solid var(--border);text-align:center">
+  <p style="font-size:12px;color:var(--text-3)">© 2026 响应式测试页面 · <a href="index.html" style="color:var(--accent)">返回首页</a></p>
+</footer>
+
+<div class="back-to-top" id="backToTop">↑</div>
+
+<script>
+// 设备信息更新
+function updateDeviceInfo() {
+  document.getElementById('screenWidth').textContent = screen.width + 'px';
+  document.getElementById('screenHeight').textContent = screen.height + 'px';
+  document.getElementById('viewportWidth').textContent = window.innerWidth + 'px';
+  document.getElementById('viewportHeight').textContent = window.innerHeight + 'px';
+  document.getElementById('dpr').textContent = window.devicePixelRatio.toFixed(2);
+  document.getElementById('orientation').textContent =
+    window.innerWidth > window.innerHeight ? '横屏' : '竖屏';
+}
+
+updateDeviceInfo();
+window.addEventListener('resize', updateDeviceInfo);
+window.addEventListener('orientationchange', updateDeviceInfo);
+
+// 主题切换
+function initTheme(){
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches)){
+    html.setAttribute('data-theme','dark');
+  }
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+}
+
+// 导航菜单
+function initNav(){
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks){
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      menuBtn.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.classList.remove('open');
+    }));
+  }
+
+  // 滚动效果
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+}
+
+// 回到顶部
+function initBackToTop(){
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+initTheme();
+initNav();
+initBackToTop();
+</script>
+
+</body>
+</html>
